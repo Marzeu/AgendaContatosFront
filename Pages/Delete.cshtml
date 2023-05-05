@@ -1,0 +1,50 @@
+﻿@page "{id:int?}"
+@model AgendaContatos.Pages.DeleteModel
+
+@{
+    ViewData["Title"] = "Apagar Contato";
+}
+
+<h1>Apagar</h1>
+
+<h3>Você tem certeza que deseja apagar o contato?</h3>
+<div>
+    <h4>Contato</h4>
+    <hr />
+    <dl class="row">
+       <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pessoa.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pessoa.Nome)
+        </dd>     
+    </dl>
+
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pessoa.Contatos)
+            </th>             
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Pessoa.Contatos.ToList()) {
+            <tr >
+                <td class="col-md-8 offset-md-4">
+                    @(item.tipo == 1 ? "Email:" : "")
+                    @(item.tipo == 0 ? "Telefone:" : "")
+                    @(item.tipo == 2 ? "Whatsapp:" : "")
+                    @item.valor
+            </td>  
+        </tr>
+}
+    </tbody>
+</table>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Pessoa.Id" />
+        <input type="submit" value="Apagar" class="btn btn-danger" /> |
+        <a asp-page="./Index" class="btn btn-secondary">Voltar</a>
+    </form>
+</div>
